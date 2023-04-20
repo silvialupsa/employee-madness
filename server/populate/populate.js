@@ -39,6 +39,7 @@ const populateEmployees = async () => {
   const equipments = await EquipmentModel.find()
 
   const employees = names.map((name) => ({
+    present: false,
     name,
     level: pick(levels),
     position: pick(positions),

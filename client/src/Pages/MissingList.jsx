@@ -3,7 +3,7 @@ import Loading from "../Components/Loading";
 import EmployeeTable from "../Components/EmployeeTable";
 
 const fetchEmployees = () => {
-  return fetch("/api/employees").then((res) => res.json());
+  return fetch("/api/missing").then((res) => res.json());
 };
 
 const deleteEmployee = (id) => {
@@ -22,11 +22,12 @@ const updateEmployee = (employee) => {
   }).then((res) => res.json());
 };
 
-const EmployeeList = () => {
+const MissingList = () => {
   const [loading, setLoading] = useState(true);
   const [employees, setEmployees] = useState(null);
   const [copyEmployees, setCopyEmployees] = useState(null);
   const [inputText, setInputText] = useState("");
+  const [isMissing, setIsMissing] = useState(false)
 
   const handleDelete = (id) => {
     deleteEmployee(id);
@@ -42,7 +43,7 @@ const EmployeeList = () => {
       setEmployees(employees);
       setCopyEmployees(employees);
     });
-  }, []);
+  }, [isMissing]);
 
   if (loading) {
     return <Loading />;
@@ -63,7 +64,7 @@ const EmployeeList = () => {
 
   const handleAttendance = (employee) => {
     employee.present = !employee.present;
-    console.log(employee.present);
+    setIsMissing(!isMissing)
     updateEmployee(employee);
   };
 
@@ -129,4 +130,4 @@ const EmployeeList = () => {
   );
 };
 
-export default EmployeeList;
+export default MissingList;

@@ -16,9 +16,10 @@ const EmployeeTable = ({ employees, onDelete, handleAttendance }) => (
       <tbody>
         {employees.map((employee) => (
           <tr key={employee._id}>
-            <input type="checkbox"
-              checked={employee.present}
-              onChange={handleAttendance}
+            <input
+              type="checkbox"
+              onChange={()=>handleAttendance(employee)}
+              defaultChecked={employee.present}
             />
             <td>{employee.name}</td>
             <td>{employee.level}</td>

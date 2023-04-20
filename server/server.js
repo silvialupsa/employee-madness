@@ -16,7 +16,6 @@ app.use(express.json());
 
 app.get("/api/employees/", async (req, res) => {
   const employees = await EmployeeModel.find().populate("equipment").sort({ created: "desc" });
-  console.log(employees)
   return res.json(employees);
 });
 
@@ -117,6 +116,25 @@ const main = async () => {
     console.log("Try /api/employees route right now");
   });
 };
+
+// app.get("/api/present", async (req, res, next) => {
+//   try {
+//     const equipment = await EmployeeModel.find({present: "true"});
+//     return res.json(equipment);
+//   } catch (err) {
+//     return next(err);
+//   }
+// });
+
+app.get("/api/missing", async (req, res, next) => {
+  try {
+    const missingPeople = await EmployeeModel.find({ present: "false" });
+    return res.json(missingPeople);
+  } catch (err) {
+    return next(err);
+  }
+});
+
 
 main().catch((err) => {
   console.error(err);

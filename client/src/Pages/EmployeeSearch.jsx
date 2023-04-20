@@ -19,9 +19,9 @@ const EmployeeSearch = () => {
   const [copyEmployees, setCopyEmployees] = useState(null);
   const [inputText, setInputText] = useState("")
   const { search } = useParams();
+  
   const handleDelete = (id) => {
     deleteEmployee(id);
-
     setEmployees((employees) => {
       return employees.filter((employee) => employee._id !== id);
     });

@@ -22,6 +22,11 @@ const Layout = () => (
             <button type="button">Create Equipment</button>
           </Link>
         </li>
+        <li>
+          <Link to="/missing">
+            <button type="button">Missing</button>
+          </Link>
+        </li>
       </ul>
     </nav>
     <Outlet />
