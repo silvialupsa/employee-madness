@@ -17,14 +17,14 @@ const EquipmentTable = ({ equipments, onDelete }) => (
             <td>{equipment.name}</td>
             <td>{equipment.type}</td>
             <td>{equipment.amount}</td>
-            {/* <td>
-              <Link to={`/update/${equipment._id}`}>
+            { <td>
+              <Link to={`/equipments/update/${equipment._id}`}>
                 <button type="button">Update</button>
               </Link>
               <button type="button" onClick={() => onDelete(equipment._id)}>
                 Delete
               </button>
-            </td> */}
+            </td>}
           </tr>
         ))}
       </tbody>

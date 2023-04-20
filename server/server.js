@@ -75,6 +75,28 @@ app.delete("/api/equipments/:id", async (req, res, next) => {
   }
 });
 
+app.patch("/api/equipment/:id", async (req, res, next) => {
+  try {
+    const equipment = await EquipmentModel.findOneAndUpdate(
+      { _id: req.params.id },
+      { $set: { ...req.body } },
+      { new: true }
+    );
+    return res.json(equipment);
+  } catch (err) {
+    return next(err);
+  }
+});
+
+app.get("/api/equipment/:id", async (req, res, next) => {
+  try {
+    const equipment = await EquipmentModel.findById(req.params.id);
+    return res.json(equipment);
+  } catch (err) {
+    return next(err);
+  }
+});
+
 const main = async () => {
   await mongoose.connect(MONGO_URL);
 
