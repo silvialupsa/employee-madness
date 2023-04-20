@@ -13,7 +13,7 @@ const EmployeeSchema = new Schema({
   },
   equipment: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'equipment'
+    ref: 'Equipment'
   }
 });
 

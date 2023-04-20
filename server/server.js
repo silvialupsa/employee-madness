@@ -15,7 +15,8 @@ const app = express();
 app.use(express.json());
 
 app.get("/api/employees/", async (req, res) => {
-  const employees = await EmployeeModel.find().sort({ created: "desc" });
+  const employees = await EmployeeModel.find().populate("equipment").sort({ created: "desc" });
+  console.log(employees)
   return res.json(employees);
 });
 
@@ -92,6 +93,17 @@ app.get("/api/equipment/:id", async (req, res, next) => {
   try {
     const equipment = await EquipmentModel.findById(req.params.id);
     return res.json(equipment);
+  } catch (err) {
+    return next(err);
+  }
+});
+
+app.post("/api/equipments/", async (req, res, next) => {
+  const equipment = req.body;
+
+  try {
+    const saved = await EquipmentModel.create(equipment);
+    return res.json(saved);
   } catch (err) {
     return next(err);
   }
