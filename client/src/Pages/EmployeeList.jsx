@@ -15,7 +15,8 @@ const deleteEmployee = (id) => {
 const EmployeeList = () => {
   const [loading, setLoading] = useState(true);
   const [employees, setEmployees] = useState(null);
-  const [filteredEmployees, setFilteredEmployees] = useState(null);
+  const [copyEmployees, setCopyEmployees] = useState(null);
+  const [inputText, setInputText] = useState("")
 
   const handleDelete = (id) => {
     deleteEmployee(id);
@@ -29,6 +30,7 @@ const EmployeeList = () => {
     fetchEmployees().then((employees) => {
       setLoading(false);
       setEmployees(employees);
+      setCopyEmployees(employees)
     });
   }, []);
 
@@ -36,66 +38,74 @@ const EmployeeList = () => {
     return <Loading />;
   }
 
-  const handleInput = (e) => {
-    setFilteredEmployees(employees);
+  const filterEmployees = (e) => {
+    setInputText(e.target.value)
     e.preventDefault();
-    setFilteredEmployees(
-      employees.filter(
-        (employee) =>
-          employee.position
-            .toLowerCase()
-            .includes(e.target.value.toLowerCase()) ||
-          employee.level.toLowerCase().includes(e.target.value.toLowerCase())
-      )
+    const filteredEmployees = copyEmployees.filter(
+      (employee) =>
+        employee.position
+          .toLowerCase()
+          .includes(e.target.value.toLowerCase()) ||
+        employee.level.toLowerCase().includes(e.target.value.toLowerCase())
     );
+    setEmployees(filteredEmployees);
   };
 
-  // const handleSortButton = () => {
-  
-  // }
 
+  const sortEmployees = (e) => {
+    const option = e.target.value;
+    if (option === "level") {
+      setEmployees((previous) =>
+        [...previous].sort((a, b) => a.level.localeCompare(b.level))
+      );
+    } else if (option === "position") {
+      setEmployees((previous) =>
+        [...previous].sort((a, b) => a.position.localeCompare(b.position))
+      );
+    } else if (option === "firstName") {
+      setEmployees((previous) =>
+        [...previous].sort((a, b) => a.name.localeCompare(b.name))
+      );
+    } else if (option === "lastName") {
+      setEmployees((previous) =>
+        [...previous].sort((a, b) => {
+          const aLast = a.name.split(" ")[a.name.split(" ").length - 1];
+          const bLast = b.name.split(" ")[b.name.split(" ").length - 1];
+          return aLast.localeCompare(bLast);
+        })
+      );
+    } else if (option === "middleName") {
+      setEmployees((previous) =>
+        [...previous].sort((a, b) => {
+          const aMiddle =
+            a.name.split(" ")[a.name.split(" ").length > 2 ? 1 : 1];
+          const bMiddle =
+            b.name.split(" ")[b.name.split(" ").length > 2 ? 1 : 1];
+          return aMiddle.localeCompare(bMiddle);
+        })
+      );
+    }
+   };
 
   return (
     <div>
       <input
-        onChange={handleInput}
+        type="text"
+        onChange={filterEmployees}
+        value={inputText}
         placeholder="Search by position or level"
       ></input>
-      <button>
-        <i className="fa fa-sort-alpha-asc"></i> Sort by First Name
-      </button>
-      <button>
-        <i className="fa fa-sort-alpha-desc"></i> Sort by First Name
-      </button>
-      <button>
-        <i className="fa fa-sort-alpha-asc"></i> Sort by Last Name
-      </button>
-      <button>
-        <i className="fa fa-sort-alpha-desc"></i> Sort by Last Name
-      </button>
-      <button>
-        <i className="fa fa-sort-alpha-asc"></i> Sort by Middle Name
-      </button>
-      <button>
-        <i className="fa fa-sort-alpha-desc"></i> Sort by Middle Name
-      </button>
-      <button>
-        <i className="fa fa-sort-alpha-asc"></i> Sort by Position
-      </button>
-      <button>
-        <i className="fa fa-sort-alpha-desc"></i> Sort by Position
-      </button>
-      <button>
-        <i className="fa fa-sort-alpha-asc"></i> Sort by Level
-      </button>
-      <button>
-        <i className="fa fa-sort-alpha-desc"></i> Sort by Level
-      </button>
-      <EmployeeTable
-        employees={filteredEmployees ? filteredEmployees : employees}
-        onDelete={handleDelete}
-      />
-      {console.log(filteredEmployees)}
+      <select onChange={sortEmployees} id="sort">
+        <option value="" selected="true" disabled="disabled">
+          --Sort by--
+        </option>
+        <option value="firstName">first name</option>
+        <option value="lastName">last name</option>
+        <option value="middleName">middle name</option>
+        <option value="position">position</option>
+        <option value="level">level</option>
+      </select>
+      <EmployeeTable employees={employees} onDelete={handleDelete} />
     </div>
   );
 };
