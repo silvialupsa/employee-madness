@@ -11,6 +11,7 @@ import EmployeeCreator from "./Pages/EmployeeCreator";
 import EmployeeUpdater from "./Pages/EmployeeUpdater";
 import EquipmentUpdater from "./Pages/EquipmentUpdater";
 import EquipmentCreator from "./Pages/EquipmentCreator";
+import EmployeeSearch from "./Pages/EmployeeSearch";
 
 import "./index.css";
 import TableTest from "./Pages/TableTest";
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
       {
         path: "/create/equipment",
         element: <EquipmentCreator />,
+      },
+      {
+        path: "/employees/:search",
+        element: <EmployeeSearch />,
       }
     ],
   },
