@@ -21,13 +21,12 @@ app.get("/api/employees/", async (req, res) => {
 
 
 app.get("/api/employees/:id", async (req, res) => {
-  const employee = await EmployeeModel.findById(req.params.id);
+  const employee = await EmployeeModel.findById(req.params.id).populate("equipment");
   return res.json(employee);
 });
 
 app.post("/api/employees/", async (req, res, next) => {
   const employee = req.body;
-
   try {
     const saved = await EmployeeModel.create(employee);
     return res.json(saved);

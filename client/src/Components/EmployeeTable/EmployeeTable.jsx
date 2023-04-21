@@ -11,20 +11,24 @@ const EmployeeTable = ({ employees, onDelete, handleAttendance }) => (
           <th>Level</th>
           <th>Position</th>
           <th>Equipment</th>
+          <th>Brand</th>
         </tr>
       </thead>
       <tbody>
         {employees.map((employee) => (
           <tr key={employee._id}>
-            <input
-              type="checkbox"
-              onChange={()=>handleAttendance(employee)}
-              defaultChecked={employee.present}
-            />
+            <td>
+              <input
+                type="checkbox"
+                onChange={() => handleAttendance(employee)}
+                defaultChecked={employee.present}
+              />
+            </td>
             <td>{employee.name}</td>
             <td>{employee.level}</td>
             <td>{employee.position}</td>
             <td>{employee.equipment.name}</td>
+            <td>{employee.brand}</td>
             <td>
               <Link to={`/update/${employee._id}`}>
                 <button type="button">Update</button>

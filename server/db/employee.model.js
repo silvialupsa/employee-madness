@@ -18,7 +18,8 @@ const EmployeeSchema = new Schema({
   equipment: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Equipment'
-  }
+  },
+  brand: String
 });
 
 module.exports = mongoose.model("Employee", EmployeeSchema);

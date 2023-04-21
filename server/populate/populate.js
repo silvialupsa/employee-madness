@@ -11,7 +11,7 @@ const EquipmentModel = require("../db/equipment.model")
 const equipmentsName = require("./equipmentsName.json")
 const equipmentsType = require("./equipmentsType.json")
 const equipmentsAmount = require("./equipmentsAmount.json")
-
+const brands = require("./brands.json")
 const mongoUrl = process.env.MONGO_URL;
 
 if (!mongoUrl) {
@@ -43,7 +43,8 @@ const populateEmployees = async () => {
     name,
     level: pick(levels),
     position: pick(positions),
-    equipment: pick(equipments)
+    equipment: pick(equipments),
+    brand: pick(brands)
   }));
 
   await EmployeeModel.create(...employees);

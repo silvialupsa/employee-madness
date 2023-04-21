@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import Loading from "../Components/Loading";
 import EmployeeTable from "../Components/EmployeeTable";
+import Pagination from "./Pagination";
+import SearchAndSortInputs from "./SearchAndSortInputs";
 
 const fetchEmployees = () => {
   return fetch("/api/missing").then((res) => res.json());
@@ -28,10 +30,10 @@ const MissingList = () => {
   const [copyEmployees, setCopyEmployees] = useState(null);
   const [inputText, setInputText] = useState("");
   const [isMissing, setIsMissing] = useState(false)
+  const [pageNumber, setPageNumber] = useState(1);
 
   const handleDelete = (id) => {
     deleteEmployee(id);
-
     setEmployees((employees) => {
       return employees.filter((employee) => employee._id !== id);
     });
@@ -103,28 +105,33 @@ const MissingList = () => {
     }
   };
 
+   const incrementPage = () => {
+     if (pageNumber * 10 >= employees.length) return;
+     setPageNumber(pageNumber + 1);
+   };
+
+   const decrementingPage = () => {
+     if (pageNumber > 1) {
+       setPageNumber(pageNumber - 1);
+     }
+  };
+  
   return (
     <div>
-      <input
-        type="text"
-        onChange={filterEmployees}
-        value={inputText}
-        placeholder="Search by position or level"
-      ></input>
-      <select onChange={sortEmployees} id="sort">
-        <option value="" selected="true" disabled="disabled">
-          --Sort by--
-        </option>
-        <option value="firstName">first name</option>
-        <option value="lastName">last name</option>
-        <option value="middleName">middle name</option>
-        <option value="position">position</option>
-        <option value="level">level</option>
-      </select>
+      <SearchAndSortInputs
+        inputText={inputText}
+        filterEmployees={filterEmployees}
+        sortEmployees={sortEmployees}
+      />
       <EmployeeTable
-        employees={employees}
+        employees={employees.slice((pageNumber - 1) * 10, pageNumber * 10)}
         onDelete={handleDelete}
         handleAttendance={handleAttendance}
+      />
+      <Pagination
+        incrementPage={incrementPage}
+        decrementingPage={decrementingPage}
+        pageNumber={pageNumber}
       />
     </div>
   );
