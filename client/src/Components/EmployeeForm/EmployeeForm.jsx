@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 
 const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
   const [equipments, setEquipments] = useState(null)
+  const [brands, setBrands] = useState(null)
   const onSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -20,10 +21,17 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
     return fetch("/api/equipments/").then((res) => res.json());
   };
 
+  const fetchBrands = () => {
+    return fetch("/api/brands/").then((res) => res.json());
+  };
+
   useEffect(() => {
     fetchEquipments().then((equipments) => {
       setEquipments(equipments);
     });
+    fetchBrands().then((brands) => {
+      setBrands(brands)
+    })
   }, []);
 
   return (
@@ -85,14 +93,14 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
           <option value="" selected={true} hidden="disabled">
             Select a Brand...
           </option>
-          {equipments?.map((equipment) => {
+          {brands?.map((brand) => {
             return (
               <option
-                selected={employee?.equipment._id === equipment._id}
-                key={equipment._id}
-                value={equipment._id}
+                selected={employee?.brand._id === brand._id}
+                key={brand._id}
+                value={brand._id}
               >
-                {equipment.name}
+                {brand.name}
               </option>
             );
           })}
