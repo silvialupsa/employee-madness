@@ -79,6 +79,26 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
         </select>
       </div>
 
+      <div className="control">
+        <label htmlFor="brand">Brand:</label>
+        <select name="brand" id="brand">
+          <option value="" selected={true} hidden="disabled">
+            Select a Brand...
+          </option>
+          {equipments?.map((equipment) => {
+            return (
+              <option
+                selected={employee?.equipment._id === equipment._id}
+                key={equipment._id}
+                value={equipment._id}
+              >
+                {equipment.name}
+              </option>
+            );
+          })}
+        </select>
+      </div>
+
       <div className="buttons">
         <button type="submit" disabled={disabled}>
           {employee ? "Update Employee" : "Create Employee"}

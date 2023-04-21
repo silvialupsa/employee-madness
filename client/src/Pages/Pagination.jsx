@@ -14,7 +14,7 @@ const Pagination = ({ decrementingPage, incrementPage, pageNumber }) => {
       >
         &laquo;
       </button>
-      <h2 style={{ marginRight: "10px" }}>{pageNumber}</h2>
+      <h2 style={{ marginRight: "12px"}}>{pageNumber}</h2>
       <button id="button" onClick={incrementPage} style={{ fontSize: "20px" }}>
         &raquo;
       </button>

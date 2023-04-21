@@ -3,6 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const EmployeeModel = require("./db/employee.model");
 const EquipmentModel = require("./db/equipment.model");
+const BrandModel = require("./db/brand.model");
 
 const { MONGO_URL, PORT = 8080 } = process.env;
 
@@ -15,13 +16,14 @@ const app = express();
 app.use(express.json());
 
 app.get("/api/employees/", async (req, res) => {
-  const employees = await EmployeeModel.find().populate("equipment").sort({ created: "desc" });
+  const employees = await EmployeeModel.find().populate("equipment brand").sort({ created: "desc" });
+
   return res.json(employees);
 });
 
 
 app.get("/api/employees/:id", async (req, res) => {
-  const employee = await EmployeeModel.findById(req.params.id).populate("equipment");
+  const employee = await EmployeeModel.findById(req.params.id).populate("equipment brand");
   return res.json(employee);
 });
 
@@ -58,6 +60,10 @@ app.delete("/api/employees/:id", async (req, res, next) => {
   }
 });
 
+app.get("/api/brands/", async (req, res) => {
+  const brands = await BrandModel.find().sort({ created: "desc" });
+  return res.json(brands);
+});
 
 app.get("/api/equipments/", async (req, res) => {
   const equipments = await EquipmentModel.find().sort({ created: "desc" });
@@ -98,7 +104,6 @@ app.get("/api/equipment/:id", async (req, res, next) => {
 
 app.post("/api/equipments/", async (req, res, next) => {
   const equipment = req.body;
-
   try {
     const saved = await EquipmentModel.create(equipment);
     return res.json(saved);

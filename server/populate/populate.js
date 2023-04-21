@@ -11,8 +11,9 @@ const EquipmentModel = require("../db/equipment.model")
 const equipmentsName = require("./equipmentsName.json")
 const equipmentsType = require("./equipmentsType.json")
 const equipmentsAmount = require("./equipmentsAmount.json")
-const brands = require("./brands.json")
 const mongoUrl = process.env.MONGO_URL;
+const BrandModel = require("../db/brand.model") 
+const brandsName = require("./brands.json")
 
 if (!mongoUrl) {
   console.error("Missing MONGO_URL environment variable");
@@ -21,6 +22,15 @@ if (!mongoUrl) {
 
 const pick = (from) => from[Math.floor(Math.random() * (from.length - 0))];
 
+const populateBrands = async () => {
+  await BrandModel.deleteMany({});
+  const brands = brandsName.map((name) => ({
+    name
+  }));
+
+  await BrandModel.create(...brands);
+  console.log("Brands created");
+};
 
 const populateEquipments = async () => {
   await EquipmentModel.deleteMany({});
@@ -37,6 +47,7 @@ const populateEquipments = async () => {
 const populateEmployees = async () => {
   await EmployeeModel.deleteMany({});
   const equipments = await EquipmentModel.find()
+  const brands = await BrandModel.find()
 
   const employees = names.map((name) => ({
     present: false,
@@ -54,6 +65,7 @@ const populateEmployees = async () => {
 const main = async () => {
   await mongoose.connect(mongoUrl);
 
+  await populateBrands()
   await populateEquipments()
   await populateEmployees();
 

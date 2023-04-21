@@ -19,7 +19,10 @@ const EmployeeSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Equipment'
   },
-  brand: String
+  brand: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Brand'
+  }
 });
 
 module.exports = mongoose.model("Employee", EmployeeSchema);
