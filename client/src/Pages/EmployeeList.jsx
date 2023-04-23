@@ -30,6 +30,7 @@ const EmployeeList = () => {
   const [copyEmployees, setCopyEmployees] = useState(null);
   const [inputText, setInputText] = useState("");
   const [pageNumber, setPageNumber] = useState(1);
+  const [ascOrDesc, setAscOrDesc] = useState(1);
 
   const handleDelete = (id) => {
     deleteEmployee(id);
@@ -44,6 +45,7 @@ const EmployeeList = () => {
       setLoading(false);
       setEmployees(employees);
       setCopyEmployees(employees);
+      setAscOrDesc(ascOrDesc + 1);
     });
   }, []);
 
@@ -115,6 +117,21 @@ const EmployeeList = () => {
     }
   };
 
+  const handleAscOrDesc = () => {
+    setAscOrDesc(ascOrDesc + 1);
+    console.log(ascOrDesc)
+    const employeeAscOrDesc = employees.sort(function (a, b) {
+      if (a.name < b.name) {
+        return ascOrDesc%2 ? -1 : 1;
+      }
+      if (a.name > b.name) {
+        return !ascOrDesc % 2 ? 1 : -1;
+      }
+      return 0;
+    });
+    setEmployees(employeeAscOrDesc);
+  };
+
   return (
     <div>
       <SearchAndSortInputs
@@ -126,6 +143,7 @@ const EmployeeList = () => {
         employees={employees.slice((pageNumber - 1) * 10, pageNumber * 10)}
         onDelete={handleDelete}
         handleAttendance={handleAttendance}
+        handleAscOrDesc={handleAscOrDesc}
       />
       <Pagination
         incrementPage={incrementPage}

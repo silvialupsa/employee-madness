@@ -1,13 +1,24 @@
 import { Link, useActionData, useEffect } from "react-router-dom";
+import { useState } from "react";
 import "./EmployeeTable.css";
 
-const EmployeeTable = ({ employees, onDelete, handleAttendance }) => (
+const EmployeeTable = ({
+  employees,
+  onDelete,
+  handleAttendance,
+  handleAscOrDesc,
+}) => (
   <div className="EmployeeTable">
     <table>
       <thead>
         <tr>
-          <th>Attendance</th>
-          <th>Name</th>
+          <th>Present</th>
+          <th>
+            <button onClick={handleAscOrDesc}>
+              <i className="fa fa-sort"></i>
+            </button>
+            Name
+          </th>
           <th>Level</th>
           <th>Position</th>
           <th>Equipment</th>
