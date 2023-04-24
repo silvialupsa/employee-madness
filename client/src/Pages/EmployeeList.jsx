@@ -119,7 +119,6 @@ const EmployeeList = () => {
 
   const handleAscOrDesc = () => {
     setAscOrDesc(ascOrDesc + 1);
-    console.log(ascOrDesc)
     const employeeAscOrDesc = employees.sort(function (a, b) {
       if (a.name < b.name) {
         return ascOrDesc%2 ? -1 : 1;

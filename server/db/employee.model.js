@@ -22,7 +22,12 @@ const EmployeeSchema = new Schema({
   brand: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Brand'
-  }
+  },
+  color: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Color'
+  },
+  salary: Number,
 });
 
 module.exports = mongoose.model("Employee", EmployeeSchema);

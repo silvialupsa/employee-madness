@@ -18,7 +18,6 @@ const EmployeeList = () => {
 
   const handleDelete = (id) => {
     deleteEquipment(id);
-
     setEquipments((equipments) => {
       return equipments.filter((equipment) => equipment._id !== id);
     });

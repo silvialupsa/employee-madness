@@ -1,8 +1,37 @@
 import { useState, useEffect } from "react";
+import { useActionData } from "react-router-dom";
 
-const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
-  const [equipments, setEquipments] = useState(null)
-  const [brands, setBrands] = useState(null)
+const EmployeeForm = ({
+  onSave,
+  disabled,
+  employee,
+  onCancel,
+}) => {
+  const [equipments, setEquipments] = useState(null);
+  const [brands, setBrands] = useState(null);
+  const [colors, setColors] = useState(null);
+  const [salaryInput, setSalaryInput] = useState(null)
+  const [level, setLevel] = useState(null)
+
+  function changeLevel(salary) {
+    if (1 <= salary && salary <= 100) {
+      setLevel("Junior")
+      console.log(level)
+    } else if (101 <= salary && salary <= 300) {
+      setLevel("Medior")
+      console.log(level);
+    } else if (301 <= salary && salary <= 400) {
+      setLevel("Senior")
+      console.log(level);
+    } else if (401 <= salary && salary <= 800) {
+      setLevel("Expert")
+      console.log(level);
+    } else if (801 <= salary) {
+      setLevel("Godlike")
+      console.log(level);
+    }
+  }
+
   const onSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -25,13 +54,21 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
     return fetch("/api/brands/").then((res) => res.json());
   };
 
+  const fetchColors = () => {
+    return fetch("/api/colors/").then((res) => res.json());
+  };
+
   useEffect(() => {
     fetchEquipments().then((equipments) => {
       setEquipments(equipments);
     });
     fetchBrands().then((brands) => {
-      setBrands(brands)
-    })
+      setBrands(brands);
+    });
+    fetchColors().then((colors) => {
+      setColors(colors);
+    });
+    changeLevel(salaryInput)
   }, []);
 
   return (
@@ -51,11 +88,10 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
 
       <div className="control">
         <label htmlFor="level">Level:</label>
-        <input
-          defaultValue={employee ? employee.level : null}
-          name="level"
-          id="level"
-        />
+        <input 
+
+        defaultValue={level ? level : employee.level}
+        name="level" id="level" />
       </div>
 
       <div className="control">
@@ -105,6 +141,36 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
             );
           })}
         </select>
+      </div>
+
+      <div className="control">
+        <label htmlFor="color">Color:</label>
+        <select name="color" id="color">
+          <option value="" selected={true} hidden="disabled">
+            Select a Color...
+          </option>
+          {colors?.map((color) => {
+            return (
+              <option
+                selected={employee?.color._id === color._id}
+                key={color._id}
+                value={color._id}
+              >
+                {color.name}
+              </option>
+            );
+          })}
+        </select>
+      </div>
+
+      <div className="control">
+        <label htmlFor="salary">Salary:</label>
+        <input
+          onChange={(e) => { console.log(e.target.value); setSalaryInput(e.target.value) }}
+          defaultValue={employee ? employee.salary : null}
+          name="salary"
+          id="salary"
+        />
       </div>
 
       <div className="buttons">

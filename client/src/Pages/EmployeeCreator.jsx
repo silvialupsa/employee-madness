@@ -9,7 +9,8 @@ const createEmployee = (employee) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(employee),
-  }).then((res) => res.json());
+  }).then((res) => 
+    res.json())
 };
 
 const EmployeeCreator = () => {

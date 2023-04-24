@@ -1,21 +1,21 @@
 const Pagination = ({ decrementingPage, incrementPage, pageNumber }) => {
   return (
-      <div
-          style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
       }}
     >
       <button
-              id="button"
-              onClick={decrementingPage}
-              style={{ fontSize: "20px" }}
+        id="prevPage"
+        onClick={decrementingPage}
+        style={{ fontSize: "20px" }}
       >
         &laquo;
       </button>
       <h2 style={{ marginRight: "12px"}}>{pageNumber}</h2>
-      <button id="button" onClick={incrementPage} style={{ fontSize: "20px" }}>
+      <button id="nextPage" onClick={incrementPage} style={{ fontSize: "20px" }}>
         &raquo;
       </button>
     </div>
