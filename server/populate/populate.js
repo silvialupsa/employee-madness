@@ -16,6 +16,7 @@ const BrandModel = require("../db/brand.model")
 const brandsList = require("./brands.json")
 const ColorModel = require("../db/color.model")
 const colorsList = require("./colors.json")
+const books = require("./books.json")
 
 if (!mongoUrl) {
   console.error("Missing MONGO_URL environment variable");
@@ -82,15 +83,27 @@ const populateEmployees = async () => {
   const brands = await BrandModel.find()
   const colors = await ColorModel.find()
 
-  const employees = names.map((name) => ({
-    present: false,
-    name,
-    position: pick(positions),
-    equipment: pick(equipments),
-    brand: pick(brands),
-    color: pick(colors),
-    salary: randomIntFromInterval(1, 1500)
-  }));
+  const employees = names.map((name) => {
+    let pickedBooks = []
+    for(let i = 0; i<3; i++){
+      pickedBooks.push(pick(books))
+  }
+    return {
+      name,
+      present: false,
+      position: pick(positions),
+      equipment: pick(equipments),
+      brand: pick(brands),
+      color: pick(colors),
+      salary: randomIntFromInterval(1, 1500),
+      readBooks: [... new Set(pickedBooks)].map((book) => {
+        return {
+          name: book.name,
+          author: book.author,
+        };
+      }),
+  }
+  });
   employees.map((employee) => employee.level = choosePosSal(employee.salary))
 
   await EmployeeModel.create(...employees);

@@ -31,8 +31,7 @@ const EmployeeList = () => {
   const [copyEmployees, setCopyEmployees] = useState(null);
   const [inputText, setInputText] = useState("");
   const [pageNumber, setPageNumber] = useState(1);
-  const [ascOrDesc, setAscOrDesc] = useState(1);
-  const { column, sortOrder } = useParams()
+  const { column, sortOrder } = useParams();
 
   const handleDelete = (id) => {
     deleteEmployee(id);
@@ -41,14 +40,38 @@ const EmployeeList = () => {
     });
   };
 
+  const handleAscOrDesc = (employees) => {
+    const employeeAscOrDesc = employees.sort(function (a, b) {
+      if (["brand", "equipment", "color"].includes(column)) {
+        if (a[column].name < b[column].name) {
+          return sortOrder === "asc" ? -1 : 1;
+        }
+        if (a[column].name > b[column].name) {
+          return sortOrder === "asc" ? 1 : -1;
+        }
+        return 0;
+      } else {
+        if (a[column] < b[column]) {
+          return sortOrder === "asc" ? -1 : 1;
+        }
+        if (a[column] > b[column]) {
+          return sortOrder === "asc" ? 1 : -1;
+        }
+        return 0;
+      }
+    });
+
+    setEmployees(employeeAscOrDesc);
+  };
+
   useEffect(() => {
     fetchEmployees().then((employees) => {
       setLoading(false);
       setEmployees(employees);
       setCopyEmployees(employees);
-      setAscOrDesc(ascOrDesc + 1);
+      handleAscOrDesc(employees);
     });
-  }, []);
+  }, [column, sortOrder]);
 
   if (loading) {
     return <Loading />;
@@ -118,29 +141,6 @@ const EmployeeList = () => {
     }
   };
 
-  const handleAscOrDesc = () => {
-    const employeeAscOrDesc = employees.sort(function (a, b) {
-      if (a[column].name !== undefined && b[column].name !== undefined) {
-        if (a[column].name < b[column].name) {
-          return sortOrder === "asc" ? -1 : 1;
-        }
-        if (a[column].name > b[column].name) {
-          return sortOrder === "asc" ? 1 : -1;
-        }
-        return 0;
-      } else {
-         if (a[column] < b[column]) {
-           return sortOrder === "asc" ? -1 : 1;
-         }
-         if (a[column] > b[column]) {
-           return sortOrder === "asc" ? 1 : -1;
-         }
-         return 0;
-      }
-    });
-    setEmployees(employeeAscOrDesc);
-  };
-
   return (
     <div>
       <SearchAndSortInputs
@@ -152,12 +152,12 @@ const EmployeeList = () => {
         employees={employees.slice((pageNumber - 1) * 10, pageNumber * 10)}
         onDelete={handleDelete}
         handleAttendance={handleAttendance}
-        handleAscOrDesc={handleAscOrDesc}
       />
       <Pagination
         incrementPage={incrementPage}
         decrementingPage={decrementingPage}
         pageNumber={pageNumber}
+        maxPage={employees.length / 10}
       />
     </div>
   );

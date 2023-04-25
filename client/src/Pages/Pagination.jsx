@@ -1,4 +1,4 @@
-const Pagination = ({ decrementingPage, incrementPage, pageNumber }) => {
+const Pagination = ({ decrementingPage, incrementPage, pageNumber, maxPage }) => {
   return (
     <div
       style={{
@@ -7,17 +7,17 @@ const Pagination = ({ decrementingPage, incrementPage, pageNumber }) => {
         justifyContent: "center",
       }}
     >
-      <button
+      {pageNumber > 1 && <button
         id="prevPage"
         onClick={decrementingPage}
         style={{ fontSize: "20px" }}
       >
         &laquo;
-      </button>
+      </button>}
       <h2 style={{ marginRight: "12px"}}>{pageNumber}</h2>
-      <button id="nextPage" onClick={incrementPage} style={{ fontSize: "20px" }}>
+      {pageNumber < maxPage && <button id="nextPage" onClick={incrementPage} style={{ fontSize: "20px" }}>
         &raquo;
-      </button>
+      </button>}
     </div>
   );
 };

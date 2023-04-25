@@ -1,30 +1,24 @@
 import { useState, useEffect } from "react";
-import { useActionData } from "react-router-dom";
 import "./EmployeeForm.css";
 
-const EmployeeForm = ({
-  onSave,
-  disabled,
-  employee,
-  onCancel,
-}) => {
+const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
   const [equipments, setEquipments] = useState(null);
   const [brands, setBrands] = useState(null);
   const [colors, setColors] = useState(null);
   const [level, setLevel] = useState(employee ? employee.level : null);
-
+  // const [employeeObject, setEmployeeObject] = useState(employee);
   function changeLevel(e) {
-    const salary = e.target.value
+    const salary = e.target.value;
     if (1 <= salary && salary <= 100) {
-      setLevel("Junior")
+      setLevel("Junior");
     } else if (101 <= salary && salary <= 300) {
-      setLevel("Medior")
+      setLevel("Medior");
     } else if (301 <= salary && salary <= 400) {
-      setLevel("Senior")
+      setLevel("Senior");
     } else if (401 <= salary && salary <= 800) {
-      setLevel("Expert")
+      setLevel("Expert");
     } else if (801 <= salary) {
-      setLevel("Godlike")
+      setLevel("Godlike");
     }
   }
 
@@ -33,13 +27,32 @@ const EmployeeForm = ({
     const formData = new FormData(e.target);
     const entries = [...formData.entries()];
 
-    const employee = entries.reduce((acc, entry) => {
+    const newEmployee = entries.reduce((acc, entry) => {
       const [k, v] = entry;
       acc[k] = v;
       return acc;
     }, {});
 
-    return onSave(employee);
+    if (employee) {
+      const newBook = [
+        ...employee.readBooks,
+        {
+          name: newEmployee.name,
+          author: newEmployee.author,
+        },
+      ];
+      newEmployee.readBooks = newBook;
+    } else {
+      const newBook = [
+        {
+          name: newEmployee.name,
+          author: newEmployee.author,
+        },
+      ];
+      newEmployee.readBooks = newBook;
+    }
+
+    return onSave(newEmployee);
   };
 
   const fetchEquipments = () => {
@@ -66,6 +79,26 @@ const EmployeeForm = ({
     });
   }, []);
 
+  // const changeEmployeeObject = (e) => {
+  //
+  //   if (employeeObject) {
+  //     employeeObject.name = e.target.value;
+  //     setEmployeeObject({ ...employeeObject });
+  //   } else {
+  //     setEmployeeObject({
+  //       name: e.target.value
+  //     })
+  //   }
+  // }
+
+  // const isFormValid = () => {
+  //   if (employeeObject && employeeObject.name) {
+  //     return false
+  //   } else {
+  //     return true
+  //   }
+  // }
+
   return (
     <form className="EmployeeForm" onSubmit={onSubmit}>
       {employee && (
@@ -78,7 +111,8 @@ const EmployeeForm = ({
           defaultValue={employee ? employee.name : null}
           name="name"
           id="name"
-          // className={ defaultValue  === null ? "borderRed" : ""}
+          // className={!employeeObject?.name ? "borderRed" : ""}
+          // onChange={changeEmployeeObject}
         />
       </div>
 
@@ -166,8 +200,56 @@ const EmployeeForm = ({
         />
       </div>
 
+      <details
+        style={{
+          backgroundColor: "rgb(99, 151, 254)",
+          // display: "flex",
+          // flexDirection: "row",
+        }}
+      >
+        <summary
+        // style={{ marginLeft: "15px", fontWeight: "bold" }}
+        >
+          Book(s):
+        </summary>
+        {employee?.readBooks?.length > 0
+          ? employee.readBooks.map((book, _id) => {
+              return (
+                <div className="control" key={book._id}>
+                  <label htmlFor="name">Book name:</label>
+                  <input
+                    disabled={true}
+                    defaultValue={employee ? book.name : null}
+                    name="name"
+                    id="name"
+                  />
+                  <div className="control"></div>
+                  <label htmlFor="author">Book author:</label>
+                  <input
+                    disabled={true}
+                    defaultValue={employee ? book.author : null}
+                    name="author"
+                    id="author"
+                  />
+                </div>
+              );
+            })
+          : null}
+      </details>
+      
+      <div className="control">
+        <label htmlFor="name">Book name:</label>
+        <input defaultValue={null} name="name" id="name" />
+        <div className="control"></div>
+        <label htmlFor="author">Book author:</label>
+        <input defaultValue={null} name="author" id="author" />
+      </div>
+
       <div className="buttons">
-        <button type="submit" disabled={disabled}>
+        <button
+          type="submit"
+          // disabled={isFormValid()}
+        >
           {employee ? "Update Employee" : "Create Employee"}
         </button>
 
