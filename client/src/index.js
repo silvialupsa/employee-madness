@@ -64,6 +64,11 @@ const router = createBrowserRouter([
         path: "/missing",
         element: <MissingList />,
       }
+      ,
+      {
+        path: "/:column/:sortOrder",
+        element: <EmployeeList />,
+      }
     ],
   },
 ]);

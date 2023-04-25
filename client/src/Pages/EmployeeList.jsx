@@ -3,6 +3,7 @@ import Loading from "../Components/Loading";
 import EmployeeTable from "../Components/EmployeeTable";
 import Pagination from "./Pagination";
 import SearchAndSortInputs from "./SearchAndSortInputs";
+import { useParams } from "react-router";
 
 const fetchEmployees = () => {
   return fetch("/api/employees").then((res) => res.json());
@@ -31,10 +32,10 @@ const EmployeeList = () => {
   const [inputText, setInputText] = useState("");
   const [pageNumber, setPageNumber] = useState(1);
   const [ascOrDesc, setAscOrDesc] = useState(1);
+  const { column, sortOrder } = useParams()
 
   const handleDelete = (id) => {
     deleteEmployee(id);
-
     setEmployees((employees) => {
       return employees.filter((employee) => employee._id !== id);
     });
@@ -118,15 +119,24 @@ const EmployeeList = () => {
   };
 
   const handleAscOrDesc = () => {
-    setAscOrDesc(ascOrDesc + 1);
     const employeeAscOrDesc = employees.sort(function (a, b) {
-      if (a.name < b.name) {
-        return ascOrDesc%2 ? -1 : 1;
+      if (a[column].name !== undefined && b[column].name !== undefined) {
+        if (a[column].name < b[column].name) {
+          return sortOrder === "asc" ? -1 : 1;
+        }
+        if (a[column].name > b[column].name) {
+          return sortOrder === "asc" ? 1 : -1;
+        }
+        return 0;
+      } else {
+         if (a[column] < b[column]) {
+           return sortOrder === "asc" ? -1 : 1;
+         }
+         if (a[column] > b[column]) {
+           return sortOrder === "asc" ? 1 : -1;
+         }
+         return 0;
       }
-      if (a.name > b.name) {
-        return !ascOrDesc % 2 ? 1 : -1;
-      }
-      return 0;
     });
     setEmployees(employeeAscOrDesc);
   };

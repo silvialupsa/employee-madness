@@ -1,5 +1,4 @@
 import { Link, useActionData, useEffect } from "react-router-dom";
-import { useState } from "react";
 import "./EmployeeTable.css";
 
 const EmployeeTable = ({
@@ -14,17 +13,140 @@ const EmployeeTable = ({
         <tr>
           <th>Present</th>
           <th>
-            <button onClick={handleAscOrDesc}>
-              <i className="fa fa-sort"></i>
-            </button>
+            <Link to={`/name/asc`}>
+              <button onClick={handleAscOrDesc}>
+                <i
+                  className="fa fa-sort-alpha-asc"
+                  style={{ color: "red" }}
+                ></i>
+              </button>
+            </Link>
+            <Link to={`/name/desc`}>
+              <button onClick={handleAscOrDesc}>
+                <i
+                  className="fa fa-sort-alpha-desc"
+                  style={{ color: "red" }}
+                ></i>
+              </button>
+            </Link>
             Name
           </th>
-          <th>Level</th>
-          <th>Position</th>
-          <th>Equipment</th>
-          <th>Brand</th>
-          <th>Favorite color</th>
-          <th>Salary</th>
+          <th>
+            <Link to={`/level/asc`}>
+              <button onClick={handleAscOrDesc}>
+                <i
+                  className="fa fa-sort-alpha-asc"
+                  style={{ color: "red" }}
+                ></i>
+              </button>
+            </Link>
+            <Link to={`/level/desc`}>
+              <button onClick={handleAscOrDesc}>
+                <i
+                  className="fa fa-sort-alpha-desc"
+                  style={{ color: "red" }}
+                ></i>
+              </button>
+            </Link>
+            Level
+          </th>
+          <th>
+            <Link to={`/position/asc`}>
+              <button onClick={handleAscOrDesc}>
+                <i
+                  className="fa fa-sort-alpha-asc"
+                  style={{ color: "red" }}
+                ></i>
+              </button>
+            </Link>
+            <Link to={`/position/desc`}>
+              <button onClick={handleAscOrDesc}>
+                <i
+                  className="fa fa-sort-alpha-desc"
+                  style={{ color: "red" }}
+                ></i>
+              </button>
+            </Link>
+            Position
+          </th>
+          <th>
+            <Link
+              to={`/equipment/asc`}
+            >
+              <button onClick={handleAscOrDesc}>
+                <i
+                  className="fa fa-sort-alpha-asc"
+                  style={{ color: "red" }}
+                ></i>
+              </button>
+            </Link>
+            <Link to={`/equipment/desc`}>
+              <button onClick={handleAscOrDesc}>
+                <i
+                  className="fa fa-sort-alpha-desc"
+                  style={{ color: "red" }}
+                ></i>
+              </button>
+            </Link>
+            Equipment
+          </th>
+          <th>
+            <Link to={`/brand/asc`}>
+              <button onClick={handleAscOrDesc}>
+                <i
+                  className="fa fa-sort-alpha-asc"
+                  style={{ color: "red" }}
+                ></i>
+              </button>
+            </Link>
+            <Link to={`/brand/desc`}>
+              <button onClick={handleAscOrDesc}>
+                <i
+                  className="fa fa-sort-alpha-desc"
+                  style={{ color: "red" }}
+                ></i>
+              </button>
+            </Link>
+            Brand
+          </th>
+          <th>
+            <Link to={`/color/asc`}>
+              <button onClick={handleAscOrDesc}>
+                <i
+                  className="fa fa-sort-alpha-asc"
+                  style={{ color: "red" }}
+                ></i>
+              </button>
+            </Link>
+            <Link to={`/color/desc`}>
+              <button onClick={handleAscOrDesc}>
+                <i
+                  className="fa fa-sort-alpha-desc"
+                  style={{ color: "red" }}
+                ></i>
+              </button>
+            </Link>
+            Favorite color
+          </th>
+          <th>
+            <Link to={`/salary/asc`}>
+              <button onClick={handleAscOrDesc}>
+                <i
+                  className="fa fa-sort-alpha-asc"
+                  style={{ color: "red" }}
+                ></i>
+              </button>
+            </Link>
+            <Link to={`/salary/desc`}>
+              <button onClick={handleAscOrDesc}>
+                <i
+                  className="fa fa-sort-alpha-desc"
+                  style={{ color: "red" }}
+                ></i>
+              </button>
+            </Link>
+            Salary
+          </th>
         </tr>
       </thead>
       <tbody>

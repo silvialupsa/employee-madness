@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useActionData } from "react-router-dom";
+import "./EmployeeForm.css";
 
 const EmployeeForm = ({
   onSave,
@@ -10,25 +11,20 @@ const EmployeeForm = ({
   const [equipments, setEquipments] = useState(null);
   const [brands, setBrands] = useState(null);
   const [colors, setColors] = useState(null);
-  const [salaryInput, setSalaryInput] = useState(null)
-  const [level, setLevel] = useState(null)
+  const [level, setLevel] = useState(employee ? employee.level : null);
 
-  function changeLevel(salary) {
+  function changeLevel(e) {
+    const salary = e.target.value
     if (1 <= salary && salary <= 100) {
       setLevel("Junior")
-      console.log(level)
     } else if (101 <= salary && salary <= 300) {
       setLevel("Medior")
-      console.log(level);
     } else if (301 <= salary && salary <= 400) {
       setLevel("Senior")
-      console.log(level);
     } else if (401 <= salary && salary <= 800) {
       setLevel("Expert")
-      console.log(level);
     } else if (801 <= salary) {
       setLevel("Godlike")
-      console.log(level);
     }
   }
 
@@ -68,7 +64,6 @@ const EmployeeForm = ({
     fetchColors().then((colors) => {
       setColors(colors);
     });
-    changeLevel(salaryInput)
   }, []);
 
   return (
@@ -83,15 +78,13 @@ const EmployeeForm = ({
           defaultValue={employee ? employee.name : null}
           name="name"
           id="name"
+          // className={ defaultValue  === null ? "borderRed" : ""}
         />
       </div>
 
       <div className="control">
         <label htmlFor="level">Level:</label>
-        <input 
-
-        defaultValue={level ? level : employee.level}
-        name="level" id="level" />
+        <input value={level} disabled={true} name="level" id="level" />
       </div>
 
       <div className="control">
@@ -106,7 +99,7 @@ const EmployeeForm = ({
       <div className="control">
         <label htmlFor="equipment">Equipment:</label>
         <select name="equipment" id="equipment">
-          <option value="" selected={true} hidden="disabled">
+          <option value="" selected={true} hidden={disabled}>
             Select an Equipment...
           </option>
           {equipments?.map((equipment) => {
@@ -166,7 +159,7 @@ const EmployeeForm = ({
       <div className="control">
         <label htmlFor="salary">Salary:</label>
         <input
-          onChange={(e) => { console.log(e.target.value); setSalaryInput(e.target.value) }}
+          onChange={changeLevel}
           defaultValue={employee ? employee.salary : null}
           name="salary"
           id="salary"
