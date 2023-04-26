@@ -6,6 +6,8 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
   const [brands, setBrands] = useState(null);
   const [colors, setColors] = useState(null);
   const [level, setLevel] = useState(employee ? employee.level : null);
+  const [bookName, setBookName] = useState(null);
+  const [bookAuthor, setBookAuthor] = useState(null)
   // const [employeeObject, setEmployeeObject] = useState(employee);
   function changeLevel(e) {
     const salary = e.target.value;
@@ -27,32 +29,13 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
     const formData = new FormData(e.target);
     const entries = [...formData.entries()];
 
-    const newEmployee = entries.reduce((acc, entry) => {
+    const employee = entries.reduce((acc, entry) => {
       const [k, v] = entry;
       acc[k] = v;
       return acc;
     }, {});
 
-    if (employee) {
-      const newBook = [
-        ...employee.readBooks,
-        {
-          name: newEmployee.name,
-          author: newEmployee.author,
-        },
-      ];
-      newEmployee.readBooks = newBook;
-    } else {
-      const newBook = [
-        {
-          name: newEmployee.name,
-          author: newEmployee.author,
-        },
-      ];
-      newEmployee.readBooks = newBook;
-    }
-
-    return onSave(newEmployee);
+    return onSave({ ...employee, readBooks: updatedReadBooks });
   };
 
   const fetchEquipments = () => {
@@ -98,6 +81,22 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
   //     return true
   //   }
   // }
+  const handleBookName = (e) => {
+    setBookName(e.target.value);
+  };
+
+  const handleBookAuthor = (e) => {
+    setBookAuthor(e.target.value);
+  };
+
+  const newBook = {
+    name: bookName,
+    author: bookAuthor,
+  };
+
+  const updatedReadBooks = employee?.readBooks?.concat(newBook);
+
+
 
   return (
     <form className="EmployeeForm" onSubmit={onSubmit}>
@@ -216,12 +215,12 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
           ? employee.readBooks.map((book, _id) => {
               return (
                 <div className="control" key={book._id}>
-                  <label htmlFor="name">Book name:</label>
+                  <label htmlFor="bookName">Book name:</label>
                   <input
                     disabled={true}
                     defaultValue={employee ? book.name : null}
-                    name="name"
-                    id="name"
+                    name="bookName"
+                    id="bookName"
                   />
                   <div className="control"></div>
                   <label htmlFor="author">Book author:</label>
@@ -236,13 +235,23 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
             })
           : null}
       </details>
-      
+
       <div className="control">
-        <label htmlFor="name">Book name:</label>
-        <input defaultValue={null} name="name" id="name" />
+        <label htmlFor="bookName">Book name:</label>
+        <input
+          value={bookName}
+          onChange={handleBookName}
+          name="bookName"
+          id="bookName"
+        />
         <div className="control"></div>
         <label htmlFor="author">Book author:</label>
-        <input defaultValue={null} name="author" id="author" />
+        <input
+          value={bookAuthor}
+          onChange={handleBookAuthor}
+          name="author"
+          id="author"
+        />
       </div>
 
       <div className="buttons">
