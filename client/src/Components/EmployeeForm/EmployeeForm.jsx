@@ -5,9 +5,9 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
   const [equipments, setEquipments] = useState(null);
   const [brands, setBrands] = useState(null);
   const [colors, setColors] = useState(null);
-  const [level, setLevel] = useState(employee ? employee.level : null);
-  const [bookName, setBookName] = useState(null);
-  const [bookAuthor, setBookAuthor] = useState(null)
+  const [level, setLevel] = useState(employee ? employee.level : "");
+  const [bookName, setBookName] = useState("");
+  const [bookAuthor, setBookAuthor] = useState("")
   const [readBooks, setReadBooks] = useState(
     employee ? employee.readBooks : []
   );
@@ -127,7 +127,7 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
           // onChange={changeEmployeeObject}
         />
       </div>
-      
+
       <div className="control">
         <label htmlFor="level">Level:</label>
         <input value={level} readOnly name="level" id="level" />
