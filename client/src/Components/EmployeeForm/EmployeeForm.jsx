@@ -8,6 +8,10 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
   const [level, setLevel] = useState(employee ? employee.level : null);
   const [bookName, setBookName] = useState(null);
   const [bookAuthor, setBookAuthor] = useState(null)
+  const [readBooks, setReadBooks] = useState(
+    employee ? employee.readBooks : []
+  );
+
   // const [employeeObject, setEmployeeObject] = useState(employee);
   function changeLevel(e) {
     const salary = e.target.value;
@@ -35,7 +39,8 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
       return acc;
     }, {});
 
-    return onSave({ ...employee, readBooks: updatedReadBooks });
+    
+    return onSave({ ...employee, readBooks: updatedReadBooksfunction() });
   };
 
   const fetchEquipments = () => {
@@ -94,7 +99,15 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
     author: bookAuthor,
   };
 
-  const updatedReadBooks = employee?.readBooks?.concat(newBook);
+  const updatedReadBooksfunction = () => {
+    if (readBooks.length > 1) {
+      const updatedReadBooks = readBooks.concat(newBook);
+      return updatedReadBooks;
+    } else {
+      const updatedReadBooks = readBooks.concat(newBook);
+      return updatedReadBooks;
+    }
+  };
 
 
 
@@ -114,10 +127,10 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
           // onChange={changeEmployeeObject}
         />
       </div>
-
+      
       <div className="control">
         <label htmlFor="level">Level:</label>
-        <input value={level} disabled={true} name="level" id="level" />
+        <input value={level} readOnly name="level" id="level" />
       </div>
 
       <div className="control">
@@ -211,13 +224,13 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
         >
           Book(s):
         </summary>
-        {employee?.readBooks?.length > 0
-          ? employee.readBooks.map((book, _id) => {
+        {readBooks.length > 0
+          ? readBooks.map((book, _id) => {
               return (
                 <div className="control" key={book._id}>
                   <label htmlFor="bookName">Book name:</label>
                   <input
-                    disabled={true}
+                    readOnly
                     defaultValue={employee ? book.name : null}
                     name="bookName"
                     id="bookName"
@@ -225,7 +238,7 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
                   <div className="control"></div>
                   <label htmlFor="author">Book author:</label>
                   <input
-                    disabled={true}
+                    readOnly
                     defaultValue={employee ? book.author : null}
                     name="author"
                     id="author"
