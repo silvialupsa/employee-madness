@@ -4,7 +4,7 @@ The application is used to store data about employees and equipment of a company
 
 
 # Project Screen Shots
-<img width="1276" alt="image" src="https://github.com/SinzianaBab/EmployeeMadness/assets/116287975/752f97a7-e21c-4bdd-ac1d-3b61170e3ac1">
+<img width="1276" alt="image" src="![image](https://github.com/silvialupsa/employee-madness/assets/108224053/e6cca4a6-cb37-4092-84d2-87d7745ee3f8)">
 <img width="1272" alt="image" src="https://github.com/SinzianaBab/EmployeeMadness/assets/116287975/79a3f68f-510a-4bb2-adf1-03ea0a57883d">
 <img width="1273" alt="image" src="https://github.com/SinzianaBab/EmployeeMadness/assets/116287975/394f7009-ea66-46d3-9352-ccdee29b8038">
 
