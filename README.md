@@ -1,6 +1,6 @@
 # Employee Data
 
-The application is used to store data about employees and equipment of a company. The app can always create, update, delete employees and equipment. Each employee can be set to present, give equipment, and the position changes according to their salary. Each page shows ten employees, and they can be sorted by name, position, and level.
+The application is designed for managing information about company employees and equipment. It provides functionalities to create, update, and delete both employees and equipment records. Each employee can have their presence status, be assigned equipment, and their position can be dynamically adjusted based on their salary. The application displays information in pages, with each page showing ten employees. Sorting options are available for organizing the data by name, position, and level.
 
 
 # Project Screen Shots
@@ -10,7 +10,7 @@ The application is used to store data about employees and equipment of a company
 
 
 # Reflection
-The project was a one-week-long project built during the 5th single-instructed week from the second module of CodeCool Programming School. Project goals included using technologies learned up until this point and familiarizing myself with documentation for new features. I wanted to extend an application for employee data management. The project was originally started, and I had to add functionality to buttons for the employee page. Additionally, I added more features to the employees and created equipment management from scratch. The employees and equipment are easy to access and search by different values.
+This project was undertaken during the fifth week of the second module at CodeCool Programming School, spanning a one-week duration. The objectives encompassed applying technologies learned thus far and delving into the documentation to integrate new features. The primary aim was to enhance an existing employee data management application. I inherited a partially developed project and was tasked with augmenting functionality to the buttons on the employee page. Furthermore, I expanded the feature set for employees and established equipment management from the ground up. The design ensures convenient access and search capabilities for both employees and equipment based on various criteria.
 
 # Challenges
 The main challenge was to work with both the server-side and client-side at the same time.
