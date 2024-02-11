@@ -18,14 +18,14 @@ button {
   font-weight: bold;
   color: black;
   text-transform: uppercase;
-  outline: rgb(99, 151, 254);
+  outline: #376d71;
   border-radius: 4px;
   cursor: pointer;
   background-color: white;
 }
 
 button:hover {
-  border-color: rgb(99, 151, 254);
+  border-color: #376d71;
 }
 
 a {
@@ -44,11 +44,11 @@ table {
 }
 
 table tbody tr {
-  background-color: rgb(198, 218, 255);
+  background-color: #b3c4c5;
 }
 
 table tbody tr:nth-child(even) {
-  background-color: rgb(219, 230, 255);
+  background-color: #dcd4d4;
 }
 
 table td,
@@ -101,4 +101,3 @@ button {
 .grow {
   flex: 1;
 }
-
