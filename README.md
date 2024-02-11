@@ -4,9 +4,9 @@ The application is used to store data about employees and equipment of a company
 
 
 # Project Screen Shots
-<img width="1276" alt="image" src="![image](https://github.com/silvialupsa/employee-madness/assets/108224053/e6cca4a6-cb37-4092-84d2-87d7745ee3f8)">
-<img width="1272" alt="image" src="https://github.com/SinzianaBab/EmployeeMadness/assets/116287975/79a3f68f-510a-4bb2-adf1-03ea0a57883d">
-<img width="1273" alt="image" src="https://github.com/SinzianaBab/EmployeeMadness/assets/116287975/394f7009-ea66-46d3-9352-ccdee29b8038">
+<img width="1276" alt="image" src="https://github.com/silvialupsa/employee-madness/assets/108224053/c9da943f-8f96-419b-a66d-9f6382b1a196">
+<img width="1272" alt="image" src="https://github.com/silvialupsa/employee-madness/assets/108224053/a49b21b2-5cd3-4b4f-9a2d-a5849f8ab54f">
+<img width="1273" alt="image" src="https://github.com/silvialupsa/employee-madness/assets/108224053/6ead4074-6d84-43b2-91b7-235581dd3cd1">
 
 
 # Reflection
